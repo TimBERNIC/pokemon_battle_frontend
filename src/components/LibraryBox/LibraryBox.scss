@@ -1,0 +1,99 @@
+.lb-global-box {
+  background-color: rgb(209, 209, 209);
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  .lb-name {
+    font-size: 26px;
+    text-align: center;
+    border-radius: 10px;
+    border: solid 1px rgb(117, 117, 117);
+    min-width: 50%;
+    margin: 0 auto;
+    text-shadow: 2px 2px 2px rgb(79, 78, 78);
+  }
+  .lb-pict-box {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+
+    img {
+      border-radius: 12px;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+
+      &:hover {
+        animation: swing 1s ease-in-out infinite alternate;
+        transform: scale(1.25);
+        cursor: pointer;
+      }
+    }
+  }
+
+  @keyframes swing {
+    from {
+      transform: scale(1.25) rotate(-3deg);
+    }
+    to {
+      transform: scale(1.25) rotate(3deg);
+    }
+  }
+  .lb-pict-box:hover {
+    transition: 1s;
+    rotate: 30%;
+  }
+  .lb-pict {
+    width: 100%;
+  }
+
+  .lb-type {
+    font-size: 18px;
+    text-align: center;
+  }
+  .t-fire {
+    color: rgb(215, 104, 18);
+    text-shadow: 2px 2px 2px rgb(219, 129, 60);
+  }
+  .t-water {
+    color: rgb(29, 29, 228);
+    text-shadow: 2px 2px 2px rgb(75, 75, 222);
+  }
+  .t-plant {
+    color: rgb(17, 204, 17);
+    text-shadow: 2px 2px 2px rgb(141, 209, 141);
+  }
+  .t-electrick {
+    color: yellow;
+    text-shadow: 2px 2px 2px rgb(213, 213, 81);
+  }
+  .t-psy {
+    color: rgb(220, 103, 122);
+    text-shadow: 2px 2px 2px rgb(212, 168, 175);
+  }
+  .t-base {
+    color: rgb(117, 117, 117);
+    text-shadow: 2px 2px 2px rgb(180, 177, 177);
+  }
+}
+
+.lb-carac {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background: #edecec;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.lb-button-box {
+  min-width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

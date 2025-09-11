@@ -1,0 +1,16 @@
+.footer-global-box {
+  background-color: rgb(197, 193, 193);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  height: 20px;
+  .footer-link {
+    margin-left: 4px;
+    text-decoration: none;
+    color: rgb(88, 88, 88);
+  }
+  .footer-link:hover {
+    color: blue;
+  }
+}

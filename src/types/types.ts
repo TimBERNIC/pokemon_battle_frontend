@@ -6,3 +6,11 @@ export interface PokemonType {
   att: number;
   def: number;
 }
+export interface PokemonBattleType extends PokemonType {
+  currentHp: number;
+}
+
+export interface BattleProps {
+  battleTab: PokemonBattleType[];
+  setBattleTab: React.Dispatch<React.SetStateAction<PokemonBattleType[]>>;
+}

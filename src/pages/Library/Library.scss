@@ -22,8 +22,10 @@
 
 .l-battle {
   position: fixed;
+  z-index: 5;
   right: 10px;
   top: 100px;
+  background-color: #f8f8f8;
   border: solid 2px rgb(79, 79, 79);
   padding: 20px;
   border-radius: 10px;

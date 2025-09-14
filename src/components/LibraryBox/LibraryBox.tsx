@@ -103,7 +103,11 @@ const LibraryBox = ({
   return (
     <div className="lb-global-box" key={id}>
       <h2 className="lb-name">{name}</h2>
-      <div className="lb-pict-box">
+      <div
+        className="lb-pict-box"
+        onClick={() => {
+          addToBattle();
+        }}>
         <img src={pokepict} alt="image du pokemon" className="lb-pict" />
       </div>
       <p className={typeColor}>{type}</p>
@@ -114,13 +118,6 @@ const LibraryBox = ({
           <p className="lb-def">Defense : {def}</p>
         </div>
         <div className="lb-button-box">
-          <button
-            onClick={() => {
-              addToBattle();
-            }}>
-            Ajouter au combat
-          </button>
-
           {isUpdatePokemon ? (
             <div className="">
               <form
@@ -171,18 +168,38 @@ const LibraryBox = ({
                 />
                 <button>Envoyer</button>
               </form>
+              <button
+                onClick={() => {
+                  setIsUpdatePokemon(false);
+                }}>
+                Fermer
+              </button>
             </div>
           ) : (
-            <button onClick={() => setIsUpdatePokemon(!isUpdatePokemon)}>
-              Modifier
-            </button>
+            <>
+              <button
+                onClick={() => {
+                  addToBattle();
+                }}>
+                Ajouter au combat
+              </button>
+              <button onClick={() => setIsUpdatePokemon(!isUpdatePokemon)}>
+                Modifier
+              </button>
+              <button
+                onClick={() => {
+                  if (
+                    confirm("Etes-vous sûr de vouloir supprimer ce pokémon?")
+                  ) {
+                    deletePokemon();
+                  } else {
+                    return;
+                  }
+                }}>
+                Supprimer
+              </button>
+            </>
           )}
-          <button
-            onClick={() => {
-              deletePokemon();
-            }}>
-            Supprimer
-          </button>
         </div>
       </div>
     </div>

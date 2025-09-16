@@ -1,7 +1,6 @@
 import type { BattleProps, PokemonBattleType } from "../../types/types";
 import { useState } from "react";
 import BattleBox from "../../components/BattleBox/BattleBox";
-
 import "./Battle.scss";
 import { Link } from "react-router-dom";
 import pikachu from "../../assets/pikachu.png";

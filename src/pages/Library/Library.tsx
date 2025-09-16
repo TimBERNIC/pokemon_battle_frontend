@@ -25,6 +25,31 @@ const Library = ({ battleTab, setBattleTab }: BattleProps) => {
   const [hp, setHp] = useState<string>("");
   const [att, setAtt] = useState<string>("");
   const [def, setDef] = useState<string>("");
+  const [type1, setType1] = useState<string>("");
+  const [type2, setType2] = useState<string>("");
+  const [searchingWord, setSearchingWord] = useState<string>("");
+
+  useEffect(() => {
+    if (type1 || type2) {
+      fetchPokemonByType(type1, type2);
+    }
+  }, [type1, type2]);
+
+  useEffect(() => {
+    if (searchingWord) searchingPokemon(searchingWord as string);
+  }, [searchingWord]);
+
+  const searchingPokemon = async (name: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/pokemon/name?name=${name}`
+      );
+      setPokemonList(response.data.message);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -35,7 +60,19 @@ const Library = ({ battleTab, setBattleTab }: BattleProps) => {
       console.log(error);
     }
   };
-
+  const fetchPokemonByType = async (t1: string, t2: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/pokemons/types?type=${t1}&type=${t2}`
+      );
+      setPokemonList(response.data.message);
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -65,6 +102,55 @@ const Library = ({ battleTab, setBattleTab }: BattleProps) => {
     <div>chargement en cours...</div>
   ) : (
     <div className="library-global-box">
+      <div>
+        <input
+          type="text"
+          value={searchingWord}
+          onChange={(event) => {
+            setSearchingWord(event.target.value);
+          }}
+          placeholder="Recherche par nom"
+          className="search-input"
+        />
+        <p
+          style={{
+            width: "100%",
+            textAlign: "center",
+            margin: "10px 0",
+          }}>
+          OU
+        </p>
+        <div className="select-box">
+          <select
+            value={type1}
+            onChange={(event) => {
+              setIsLoading(true);
+              setType1(event.target.value);
+            }}>
+            <option value="">-- Choisir un type --</option>
+            <option value="fire">Feu</option>
+            <option value="water">Eau</option>
+            <option value="plant">Plante</option>
+            <option value="electrick">Electrique</option>
+            <option value="normal">Normal</option>
+            <option value="psy">Psychique</option>
+          </select>
+          <select
+            value={type2}
+            onChange={(event) => {
+              setIsLoading(true);
+              setType2(event.target.value);
+            }}>
+            <option value="">-- Choisir un type --</option>
+            <option value="fire">Feu</option>
+            <option value="water">Eau</option>
+            <option value="plant">Plante</option>
+            <option value="electrick">Electrique</option>
+            <option value="normal">Normal</option>
+            <option value="psy">Psychique</option>
+          </select>
+        </div>
+      </div>
       <button onClick={() => setIsNewPokemonSivisible(!isNewPokemonVisible)}>
         AJOUTER UN POKEMON
       </button>
@@ -160,18 +246,22 @@ const Library = ({ battleTab, setBattleTab }: BattleProps) => {
         </div>
       </div>
       <div className="library-pokemon-box-box">
-        {pokemonList
-          ?.sort((a, b) => a.name.localeCompare(b.name))
-          .map((pokemon: PokemonType) => {
-            return (
-              <LibraryBox
-                pokemon={pokemon}
-                fetchData={fetchData}
-                battleTab={battleTab}
-                setBattleTab={setBattleTab}
-              />
-            );
-          })}
+        {pokemonList && pokemonList.length > 0 ? (
+          pokemonList
+            ?.sort((a, b) => a.name.localeCompare(b.name))
+            .map((pokemon: PokemonType) => {
+              return (
+                <LibraryBox
+                  pokemon={pokemon}
+                  fetchData={fetchData}
+                  battleTab={battleTab}
+                  setBattleTab={setBattleTab}
+                />
+              );
+            })
+        ) : (
+          <div>Aucun pokémon trouvé</div>
+        )}
       </div>
     </div>
   );
